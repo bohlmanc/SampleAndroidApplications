@@ -1,6 +1,14 @@
+
 <resources>
     <string name="app_name">FirstSampleApp</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="spinnerEntries">
+        <item>Hello!</item>
+        <item>What\'s your name?</item>
+        <item>My name is..</item>
+    </string-array>
+
 </resources>

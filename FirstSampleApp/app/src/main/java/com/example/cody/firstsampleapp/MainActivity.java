@@ -1,17 +1,25 @@
 package com.example.cody.firstsampleapp;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Spinner;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    private Spinner spinner;
+    public static String selection;
+    public static final int spinnerCode = 1;
+    public static final String spinnerID = "key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        addListenerOnSpinnerItemSelection();
     }
 
 
@@ -35,5 +43,37 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addListenerOnSpinnerItemSelection() {
+        spinner = (Spinner) findViewById(R.id.spinner);
+        spinner.setOnItemSelectedListener(new SpinnerListener());
+    }
+
+    public static void setSpinnerString(String s) {
+        selection = s;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == this.spinnerCode) {
+            if (resultCode == RESULT_OK) {
+                String movieName = data.getStringExtra(MainActivity.spinnerID);
+                int myIndex = this.getIndex(this.spinner, movieName);
+                this.spinner.setSelection(myIndex);
+            }
+        }
+    }
+
+    private int getIndex(Spinner spinner, String myString) {
+
+        int index = 0;
+
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).equals(myString)) {
+                index = i;
+            }
+        }
+        return index;
     }
 }
